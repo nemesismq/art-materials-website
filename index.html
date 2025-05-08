@@ -1,103 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artista</title>
+    <title>🎀 Kuromi Svijet - Igrica 🎀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cherry+Swash:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Artista</h1>
-        <img src="images/banner.jpg" alt="Art Shop Banner" class="banner">
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#materials">Materials</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <h1>🌟 Dobrodošli u Kuromi i Sanrio Svijet 🌟</h1>
+        <p>🎮 Istraži preko 100 nivoa sa svim omiljenim Sanrio likovima! 🎮</p>
     </header>
+    <nav>
+        <ul>
+            <li><a href="#game">🎯 Igraj</a></li>
+            <li><a href="#premium">💎 Premium</a></li>
+            <li><a href="#gallery">🖼️ Galerija</a></li>
+            <li><a href="#about">📖 O Nama</a></li>
+        </ul>
+    </nav>
     <main>
-        <section id="materials">
-            <h2>Featured Art Materials</h2>
-            <div class="material">
-                <img src="images/paint-brushes.jpg" alt="Paint Brushes">
-                <h3>Paint Brushes</h3>
-                <p>High-quality brushes for all your painting needs.</p>
-                <p class="price">$15.99</p>
+        <section id="game">
+            <h2>🎮 Sanrio Avantura</h2>
+            <p>Odaberi opciju i započni svoju avanturu sa Kuromi, Hello Kitty, My Melody, Cinnamoroll i ostalim likovima!</p>
+            <div class="options">
+                <button onclick="showSection('level-selector')">🎯 Igraj</button>
+                <button onclick="showSection('premium')">💎 Premium</button>
+                <button onclick="showSection('gallery')">🖼️ Galerija</button>
             </div>
-            <div class="material">
-                <img src="images/canvas.jpg" alt="Canvas">
-                <h3>Canvas</h3>
-                <p>Durable and versatile canvases for your artwork.</p>
-                <p class="price">$12.49</p>
+            <div id="level-selector" class="hidden">
+                <h3>Odaberi nivo:</h3>
+                <div class="level-grid">
+                    <!-- Generate 50 levels dynamically -->
+                    <script>
+                        for (let i = 1; i <= 50; i++) {
+                            document.write(`
+                                <div class="level-card">
+                                    <div class="level-number">Nivo ${i}</div>
+                                    <button onclick="openGamePopup(${i})">🎮 Igraj</button>
+                                </div>
+                            `);
+                        }
+                    </script>
+                </div>
             </div>
-            <div class="material">
-                <img src="images/acrylic-paints.jpg" alt="Acrylic Paints">
-                <h3>Acrylic Paints</h3>
-                <p>Vibrant and long-lasting acrylic paints.</p>
-                <p class="price">$25.99</p>
+        </section>
+
+        <!-- Game Popup Section -->
+        <div id="game-popup" class="hidden">
+            <div class="popup-content">
+                <button class="close-popup" onclick="closeGamePopup()">✖ Zatvori</button>
+                <h3>Igraj Nivo <span id="level-number"></span></h3>
+                <div class="game-area">
+                    <p>Pronađi skrivene Sanrio likove u mreži! Klikni na slike da ih otkriješ.</p>
+                    <div class="game-grid">
+                        <!-- Game grid for Level 1 -->
+                        <div class="grid-item" onclick="revealCharacter(this, 'Kuromi')"></div>
+                        <div class="grid-item" onclick="revealCharacter(this, 'Hello Kitty')"></div>
+                        <div class="grid-item" onclick="revealCharacter(this, 'My Melody')"></div>
+                        <div class="grid-item" onclick="revealCharacter(this, 'Cinnamoroll')"></div>
+                        <div class="grid-item" onclick="revealCharacter(this, 'Badtz-Maru')"></div>
+                        <div class="grid-item" onclick="revealCharacter(this, 'Prazno')"></div>
+                        <div class="grid-item" onclick="revealCharacter(this, 'Prazno')"></div>
+                        <div class="grid-item" onclick="revealCharacter(this, 'Prazno')"></div>
+                        <div class="grid-item" onclick="revealCharacter(this, 'Prazno')"></div>
+                    </div>
+                </div>
             </div>
-            <div class="material">
-                <img src="images/oil-paints.jpg" alt="Oil Paints">
-                <h3>Oil Paints</h3>
-                <p>Rich and vibrant oil paints for professional artists.</p>
-                <p class="price">$29.99</p>
+        </div>
+
+        <!-- Completion Popup Section -->
+        <div id="completion-popup" class="hidden">
+            <div class="completion-content">
+                <h3>🎉 Čestitamo! Završili ste nivo! 🎉</h3>
+                <p>Spremni ste za prelazak na sledeći nivo.</p>
+                <button onclick="proceedToNextLevel()">➡️ Sledeći nivo</button>
+                <button onclick="closeCompletionPopup()">✖ Zatvori</button>
             </div>
-            <div class="material">
-                <img src="images/gouache-paints.jpg" alt="Gouache Paints">
-                <h3>Gouache Paints</h3>
-                <p>Opaque and versatile gouache paints for unique effects.</p>
-                <p class="price">$19.99</p>
+        </div>
+
+        <section id="premium" class="hidden">
+            <h2>💎 Premium Sadržaj</h2>
+            <p>Otkrij ekskluzivne pogodnosti:</p>
+            <ul>
+                <li>✨ Pristup dodatnim nivoima.</li>
+                <li>🌟 Specijalni Sanrio likovi.</li>
+                <li>🎁 Bonus poeni i nagrade.</li>
+            </ul>
+            <button onclick="purchasePremium()">💰 Kupi Premium - 9.99€</button>
+        </section>
+        <section id="gallery" class="hidden">
+            <h2>🖼️ Galerija</h2>
+            <p>Pregledaj slike svih Sanrio likova!</p>
+            <div class="gallery-grid">
+                <div>
+                    <img src="images/kuromi1.jpg" alt="Kuromi">
+                    <p>Kuromi</p>
+                </div>
+                <div>
+                    <img src="images/hello-kitty.jpg" alt="Hello Kitty">
+                    <p>Hello Kitty</p>
+                </div>
+                <div>
+                    <img src="images/my-melody.jpg" alt="My Melody">
+                    <p>My Melody</p>
+                </div>
+                <div>
+                    <img src="images/cinnamoroll.jpg" alt="Cinnamoroll">
+                    <p>Cinnamoroll</p>
+                </div>
+                <div>
+                    <img src="images/badtz-maru.jpg" alt="Badtz-Maru">
+                    <p>Badtz-Maru</p>
+                </div>
+                <div>
+                    <img src="images/keroppi.jpg" alt="Keroppi">
+                    <p>Keroppi</p>
+                </div>
+                <div>
+                    <img src="images/pompompurin.jpg" alt="Pompompurin">
+                    <p>Pompompurin</p>
+                </div>
+                <div>
+                    <img src="images/little-twin-stars.jpg" alt="Little Twin Stars">
+                    <p>Little Twin Stars</p>
+                </div>
+                <div>
+                    <img src="images/chococat.jpg" alt="Chococat">
+                    <p>Chococat</p>
+                </div>
+                <div>
+                    <img src="images/tuxedosam.jpg" alt="Tuxedosam">
+                    <p>Tuxedosam</p>
+                </div>
             </div>
-            <div class="material">
-                <img src="images/colored-pencils.jpg" alt="Colored Pencils">
-                <h3>Colored Pencils</h3>
-                <p>Bright and smooth colored pencils for detailed drawings.</p>
-                <p class="price">$14.99</p>
-            </div>
-            <div class="material">
-                <img src="images/sketch-pencils.jpg" alt="Sketch Pencils">
-                <h3>Sketch Pencils</h3>
-                <p>Precision sketch pencils for all your drawing needs.</p>
-                <p class="price">$9.99</p>
-            </div>
-            <div class="material">
-                <img src="images/drawing-paper.jpg" alt="Drawing Paper">
-                <h3>Drawing Paper</h3>
-                <p>High-quality paper for sketching and drawing.</p>
-                <p class="price">$7.99</p>
-            </div>
-            <div class="material">
-                <img src="images/sketchbooks.jpg" alt="Sketchbooks">
-                <h3>Sketchbooks</h3>
-                <p>Portable sketchbooks for artists on the go.</p>
-                <p class="price">$10.99</p>
-            </div>
-            <button class="shop-now">Shop Now</button>
         </section>
         <section id="about">
-            <h2>About Art and Painting</h2>
-            <p>Art is a timeless form of expression that allows individuals to convey emotions, ideas, and creativity. Painting, in particular, is a versatile medium that has been cherished for centuries. Whether you're a beginner or a professional artist, having the right materials is essential to bring your vision to life.</p>
-            <p>At Artista, we provide a wide range of high-quality art supplies to meet your needs. From durable canvases to vibrant acrylic paints and precision-crafted brushes, our products are designed to inspire creativity and help you achieve your artistic goals.</p>
-            <p>Explore our collection and discover the tools that will elevate your art to the next level!</p>
-        </section>
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <form>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-                <button type="submit">Send</button>
-            </form>
+            <h2>📖 O Nama</h2>
+            <p>Sanrio Svijet je razigrana igrica inspirisana svim vašim omiljenim likovima. Naša misija je da unesemo radost i boje u vaš svakodnevni život!</p>
+            <p>🎨 Naša ekipa se sastoji od kreativnih dizajnera i programera koji vole Sanrio i žele da podele ovu ljubav sa svetom.</p>
+            <p>💌 Kontaktirajte nas za povratne informacije ili predloge: <a href="mailto:info@sanriosvijet.com">info@sanriosvijet.com</a></p>
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 Artista. All rights reserved.</p>
+        <p>🌸 &copy; 2025 Sanrio Svijet by TvojStudio 🌸</p>
     </footer>
+
+    <script>
+        const levels = {};
+        for (let i = 1; i <= 50; i++) {
+            levels[i] = [`images/level${i}-1.jpg`, `images/level${i}-2.jpg`, `images/level${i}-3.jpg`];
+        }
+
+        function openGamePopup(level) {
+            const popup = document.getElementById('game-popup');
+            const levelNumber = document.getElementById('level-number');
+            levelNumber.textContent = level;
+            popup.classList.remove('hidden');
+        }
+
+        function closeGamePopup() {
+            const popup = document.getElementById('game-popup');
+            popup.classList.add('hidden');
+        }
+
+        function revealCharacter(element, character) {
+            if (character === 'Prazno') {
+                element.innerHTML = '❌';
+                element.style.backgroundColor = '#ffcccc';
+            } else {
+                element.innerHTML = character;
+                element.classList.add('revealed'); // Apply the revealed class
+            }
+            element.style.pointerEvents = 'none';
+
+            // Check if all characters are revealed
+            const allRevealed = document.querySelectorAll('.grid-item:not(.revealed)').length === 0;
+            if (allRevealed) {
+                showCompletionPopup();
+            }
+        }
+
+        function showCompletionPopup() {
+            const popup = document.getElementById('completion-popup');
+            popup.classList.remove('hidden');
+        }
+
+        function closeCompletionPopup() {
+            const popup = document.getElementById('completion-popup');
+            popup.classList.add('hidden');
+        }
+
+        function proceedToNextLevel() {
+            closeCompletionPopup();
+            closeGamePopup();
+            alert('Prelazite na sledeći nivo!'); // Replace with actual level transition logic
+        }
+
+        function purchasePremium() {
+            alert('Hvala što ste kupili Premium! Uživajte u dodatnim sadržajima!');
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('section.hidden, #level-selector').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
